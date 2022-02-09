@@ -1,0 +1,15 @@
+name: "PR title with next semver"
+description: "Set semver to pr title"
+inputs:
+  github-token:
+    description: "The GITHUB_TOKEN secret"
+    required: true
+  semver:
+    description: "Current semver"
+    default: ""
+outputs:
+  next_semver:
+    description: "next semver"
+runs:
+  using: "node12"
+  main: "index.js"
