@@ -6,7 +6,7 @@ try {
   const githubToken = core.getInput("github-token", { required: true });
   const semver = core.getInput("semver");
   const octokit = github.getOctokit(githubToken);
-  const versionMap = [
+  const tags = [
     "major",
     "minor",
     "patch",
@@ -15,24 +15,24 @@ try {
     "prepatch",
     "prerelease",
   ];
-  let command = "";
+  let selectedTag = null;
 
   const labels = github.context.payload.pull_request.labels.map(
     (el) => el.name
   );
 
-  for (const version of versionMap) {
-    if (labels.includes(version)) {
-      command = version;
+  for (const tag of tags) {
+    if (labels.includes(tag)) {
+      selectedTag = tag;
       break;
     }
   }
 
-  if (!command) {
+  if (!selectedTag) {
     throw new Error("semver label not found");
   }
 
-  const nextSemver = inc(semver, command);
+  const nextSemver = inc(semver, selectedTag);
 
   if (!nextSemver) {
     throw new Error("failed to get next semver");
@@ -44,6 +44,8 @@ try {
     pull_number: github.context.payload.pull_request.number,
     title: `Release v${nextSemver}`,
   });
+
+  core.setOutput("next-semver", version);
 } catch (error) {
   core.setFailed(error.message);
 }

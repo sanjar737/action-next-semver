@@ -6,9 +6,9 @@ inputs:
     required: true
   semver:
     description: "Current semver"
-    default: ""
+    default: "0.0.0"
 outputs:
-  next_semver:
+  next-semver:
     description: "next semver"
 runs:
   using: "node12"
