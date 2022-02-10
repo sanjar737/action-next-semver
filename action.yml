@@ -1,15 +1,12 @@
-name: "PR title with next semver"
-description: "Set semver to pr title"
+name: "Get the next semantic version"
+description: "Get the next semantic version based on the semantic tags label in the pull request"
 inputs:
-  github-token:
-    description: "The GITHUB_TOKEN secret"
-    required: true
-  semver:
-    description: "Current semver"
+  version:
+    description: "Current version"
     default: "0.0.0"
 outputs:
-  next-semver:
-    description: "next semver"
+  next-version:
+    description: "Next version"
 runs:
   using: "node12"
   main: "index.js"
