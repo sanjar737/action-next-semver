@@ -19,6 +19,10 @@ try {
     (el) => el.name
   );
 
+  console.log("version", version);
+  console.log("pr-labels", github.context.payload.pull_request.labels);
+  console.log("labels", labels);
+
   for (const tag of tags) {
     if (labels.includes(tag)) {
       nextVersion = inc(nextVersion, tag);
